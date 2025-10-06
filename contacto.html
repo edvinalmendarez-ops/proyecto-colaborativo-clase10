@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto - Gestor de Libros</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function Formulario() {
+      const [nombre, setNombre] = React.useState('');
+      const [email, setEmail] = React.useState('');
+      const [mensaje, setMensaje] = React.useState('');
+      const [error, setError] = React.useState('');
+
+      const validar = (e) => {
+        e.preventDefault();
+        if (!nombre.trim()) return setError('El nombre es obligatorio.');
+        if (!/\S+@\S+\.\S+/.test(email)) return setError('Correo electrónico inválido.');
+        if (mensaje.length < 10) return setError('El mensaje debe tener al menos 10 caracteres.');
+        alert('Formulario enviado correctamente 📬');
+        setError('');
+      };
+
+      return (
+        <form onSubmit={validar}>
+          <h2>Contacto</h2>
+          <p>¿Tienes sugerencias sobre nuevos libros o mejoras del gestor? ¡Escríbenos!</p>
+
+          <label>Nombre:</label>
+          <input value={nombre} onChange={(e) => setNombre(e.target.value)} />
+          <br/>
+
+          <label>Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <br/>
+
+          <label>Mensaje:</label>
+          <textarea value={mensaje} onChange={(e) => setMensaje(e.target.value)} />
+          <br/>
+
+          {error && <p style={{color: 'red'}}>{error}</p>}
+          <button type="submit">Enviar</button>
+        </form>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Formulario />);
+</script>
+<p style="text-align:center;">Gracias por contactarnos, pronto te responderemos 📬</p>
+</body>
+</html>
+
